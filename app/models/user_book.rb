@@ -1,6 +1,5 @@
-BASE_URL = "https://www.googleapis.com/books/v1/volumes"
-
 class UserBook < ApplicationRecord
+  BASE_URL = "https://www.googleapis.com/books/v1/volumes"
   belongs_to :user
   # also belongs to book but Google Books ...
 
@@ -12,7 +11,7 @@ class UserBook < ApplicationRecord
     {
       title: resp_obj["volumeInfo"]["title"],
       author: resp_obj["volumeInfo"]["authors"][0],
-      image: resp_obj["volumeInfo"]["imageLinks"]["thumbnail"],
+      image: resp_obj["volumeInfo"]["imageLinks"]["thumbnail"]
     }
   end
 end
