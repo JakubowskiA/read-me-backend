@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   BASE_URL = "https://www.googleapis.com/books/v1/volumes"
-
+  DEFAULT_IMAGE = "http://spiritualmilk.com/wp-content/uploads/2017/03/genericBookCover.jpg"
   has_many :user_books
 
   def search_books(author)
@@ -13,7 +13,7 @@ class User < ApplicationRecord
         {
           title: item["volumeInfo"]["title"],
           author: item["volumeInfo"]["authors"][0],
-          image: item["volumeInfo"]["imageLinks"]["thumbnail"]
+          image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE
         }
       end
     else
