@@ -12,4 +12,9 @@ class UsersController < ApplicationController
     end
     render json: this_users_books
   end
+
+  def get_detailed_book
+    user = User.find(params[:user_id])
+    render json: user.get_detailed_book(params[:book_id])
+  end
 end
