@@ -11,6 +11,7 @@ class UserBook < ApplicationRecord
     resp_obj = JSON.parse(resp)
 
     {
+      id: book_id,
       title: resp_obj["volumeInfo"]["title"],
       author: resp_obj["volumeInfo"]["authors"][0],
       image: resp_obj["volumeInfo"]["imageLinks"] ? resp_obj["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE
@@ -23,6 +24,7 @@ class UserBook < ApplicationRecord
     resp_obj = JSON.parse(resp)
 
     {
+      id: book_id,
       title: resp_obj["volumeInfo"]["title"],
       author: resp_obj["volumeInfo"]["authors"][0],
       image: resp_obj["volumeInfo"]["imageLinks"] ? resp_obj["volumeInfo"]["imageLinks"]["medium"] : DEFAULT_IMAGE,
