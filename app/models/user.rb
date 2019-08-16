@@ -11,9 +11,10 @@ class User < ApplicationRecord
     if resp_obj["items"]
       resp_obj["items"].map do |item|
         {
+          id: item["id"],
           title: item["volumeInfo"]["title"],
           author: item["volumeInfo"]["authors"][0],
-          image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE
+          image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE,
         }
       end
     else
