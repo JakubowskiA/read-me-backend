@@ -27,7 +27,7 @@ class UserBook < ApplicationRecord
       id: book_id,
       title: resp_obj["volumeInfo"]["title"],
       author: resp_obj["volumeInfo"]["authors"][0],
-      image: resp_obj["volumeInfo"]["imageLinks"] ? resp_obj["volumeInfo"]["imageLinks"]["medium"] : DEFAULT_IMAGE,
+      image: resp_obj["volumeInfo"]["imageLinks"] && resp_obj["volumeInfo"]["imageLinks"]["medium"] ? resp_obj["volumeInfo"]["imageLinks"]["medium"] : DEFAULT_IMAGE,
       description: resp_obj["volumeInfo"]["description"] ?
         strip_tags(resp_obj["volumeInfo"]["description"]) :
         "No description available"

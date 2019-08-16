@@ -5,6 +5,7 @@ class UserBooksController < ApplicationController
   end
 
   def show_detail
+    byebug
     user_book = UserBook.find_by(user_id: params[:user_id], book_id: params[:book_id])
     render json: user_book.fetch_detailed_book_info
   end

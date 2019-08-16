@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get "/users/:user_id/my_books", to: "users#show_books"
   get "/users/:user_id/search/:author_search_string", to: "users#search"
 
+  get "/users/:user_id/book_detail/:book_id", to: "users#get_detailed_book"
   post "/user_books", to: "user_books#create"
 end
