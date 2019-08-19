@@ -8,15 +8,16 @@ class User < ApplicationRecord
     url = "#{BASE_URL}/?q=inauthor:#{User.parse_author_string(author)}"
     resp = RestClient::Request.execute(url: url, method: "GET")
     resp_obj = JSON.parse(resp)
-
     if resp_obj["items"]
       resp_obj["items"].map do |item|
         {
           id: item["id"],
           title: item["volumeInfo"]["title"],
           author: item["volumeInfo"]["authors"][0],
-          image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE,
+          image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE
         }
+      end.select do |book|
+        !self.user_books.map(&:book_id).include?(book[:id])
       end
     else
       []
