@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  # skip_before_action :verify_authenticity_token
+
+  def create
+    user = User.create(user_params)
+    token = JWT.encode({ user_id: user.id }, "secret")
+    render json: { token: token, email: user.email, name: user.name }
+  end
+
   def search
     user = User.find(params[:user_id])
     author_string = params[:author_search_string]
@@ -16,5 +24,11 @@ class UsersController < ApplicationController
   def get_detailed_book
     user = User.find(params[:user_id])
     render json: user.get_detailed_book(params[:book_id])
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password)
   end
 end
