@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   get "/users/:user_id/book_detail/:book_id", to: "users#get_detailed_book"
   post "/user_books", to: "user_books#create"
+  delete "/user_books/:user_id/:book_id", to: "user_books#destroy"
 end
