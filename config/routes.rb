@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/retrieve_user", to: "auth#retrieve"
+  post "/signup", to: "users#create"
+
   get "/user_books/:user_id/:book_id", to: "user_books#show"
   get "/user_books/detail/:user_id/:book_id", to: "user_books#show_detail"
   get "/users/:user_id/my_books", to: "users#show_books"

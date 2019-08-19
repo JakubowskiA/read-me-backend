@@ -2,6 +2,7 @@ class User < ApplicationRecord
   BASE_URL = "https://www.googleapis.com/books/v1/volumes"
   DEFAULT_IMAGE = "http://spiritualmilk.com/wp-content/uploads/2017/03/genericBookCover.jpg"
   has_many :user_books
+  has_secure_password
   include ActionView::Helpers::SanitizeHelper
 
   def search_books(author)
@@ -33,7 +34,7 @@ class User < ApplicationRecord
       id: book_id,
       title: resp_obj["volumeInfo"]["title"],
       author: resp_obj["volumeInfo"]["authors"][0],
-      image: resp_obj["volumeInfo"]["imageLinks"] && resp_obj["volumeInfo"]["imageLinks"]["medium"] ? resp_obj["volumeInfo"]["imageLinks"]["medium"] : DEFAULT_IMAGE,
+      image: resp_obj["volumeInfo"]["imageLinks"] && resp_obj["volumeInfo"]["imageLinks"]["thumbnail"] ? resp_obj["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE,
       description: resp_obj["volumeInfo"]["description"] ?
         strip_tags(resp_obj["volumeInfo"]["description"]) :
         "No description available"
