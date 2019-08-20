@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   # skip_before_action :verify_authenticity_token
 
   def create
-    user = User.create(user_params)
+    user = User.create!(user_params)
     token = JWT.encode({ user_id: user.id }, "secret")
-    render json: { token: token, user: { email: user.email, name: user.name } }
+    render json: { token: token, user: { id: user.id, email: user.email, name: user.name } }
   end
 
   def search
