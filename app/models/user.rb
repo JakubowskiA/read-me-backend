@@ -11,12 +11,16 @@ class User < ApplicationRecord
     resp_obj = JSON.parse(resp)
     if resp_obj["items"]
       resp_obj["items"].map do |item|
-        {
-          id: item["id"],
-          title: item["volumeInfo"]["title"],
-          author: item["volumeInfo"]["authors"][0],
-          image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE
-        }
+        if item["volumeInfo"]
+          {
+            id: item["id"],
+            title: item["volumeInfo"]["title"],
+            author: item["volumeInfo"]["authors"] ? item["volumeInfo"]["authors"][0] : "C'mon google",
+            image: item["volumeInfo"]["imageLinks"] ? item["volumeInfo"]["imageLinks"]["thumbnail"] : DEFAULT_IMAGE
+          }
+        else
+          {}
+        end
       end.select do |book|
         !self.user_books.map(&:book_id).include?(book[:id])
       end
