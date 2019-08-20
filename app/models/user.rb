@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_secure_password
   include ActionView::Helpers::SanitizeHelper
 
+  validates :email, uniqueness: true
+
   def search_books(author)
     url = "#{BASE_URL}/?q=inauthor:#{User.parse_author_string(author)}"
     resp = RestClient::Request.execute(url: url, method: "GET")
