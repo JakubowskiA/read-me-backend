@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def create
     user = User.create(user_params)
     token = JWT.encode({ user_id: user.id }, "secret")
-    render json: { token: token, email: user.email, name: user.name }
+    render json: { token: token, user: { email: user.email, name: user.name } }
   end
 
   def search
